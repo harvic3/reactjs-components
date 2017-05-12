@@ -11,10 +11,17 @@ class List extends React.Component {
       const key = `${parentIndex}.${childIndex}`;
       childIndex++;
 
+      const attributes = Util.exclude(item, [
+        "content",
+        "transitionName",
+        "transitionEnterTimeout",
+        "transitionLeaveTimeout"
+      ]);
+
       if (Util.isArrayLike(item.content)) {
         return (
           <ListItem
-            {...Util.exclude(item, ["content"])}
+            {...attributes}
             key={key}
             tag={item.tag}
             transition={true}
@@ -27,7 +34,7 @@ class List extends React.Component {
         );
       } else {
         return (
-          <ListItem key={key} {...Util.exclude(item, ["content"])}>
+          <ListItem key={key} {...attributes}>
             {item.content}
           </ListItem>
         );

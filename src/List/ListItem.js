@@ -8,11 +8,12 @@ class ListItem extends React.Component {
     const { props } = this;
     const Tag = props.tag;
 
-    // Uses all passed properties as attributes, excluding propTypes
-    const attributes = Util.exclude(props, Object.keys(ListItem.propTypes)) || {
-    };
+    const excludeProps = ["children", "className", "tag", "transition"];
 
-    if (attributes.transition) {
+    // Uses all passed properties as attributes, excluding propTypes
+    const attributes = Util.exclude(props, excludeProps) || {};
+
+    if (props.transition) {
       return (
         <ReactCSSTransitionGroup
           {...attributes}
@@ -40,7 +41,8 @@ ListItem.defaultProps = {
 ListItem.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
-  tag: PropTypes.string
+  tag: PropTypes.string,
+  transition: PropTypes.bool
 };
 
 module.exports = ListItem;
